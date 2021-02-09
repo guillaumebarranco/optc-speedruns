@@ -1,0 +1,4 @@
+<div class="leaderboard-item" (click)="_openLeaderboard(item)">
+  <div>{{ item.name }}</div>
+  <img *ngIf="item.icon" [src]="item.icon" [width]="_imgSize" alt="" />
+</div>

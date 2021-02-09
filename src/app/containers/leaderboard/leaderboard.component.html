@@ -1,0 +1,12 @@
+<div class="back-page-button">
+  <button mat-button (click)="_previousPage()">Retour aux classements</button>
+</div>
+
+<div class="leaderboards">
+  <app-leaderboard-item
+    class="leaderboard-item"
+    *ngFor="let leaderboard of data.leaderboards"
+    [item]="leaderboard"
+    (openLeaderboard)="_onOpenLeaderboard($event)"
+  ></app-leaderboard-item>
+</div>

@@ -1,0 +1,50 @@
+.nav {
+  background-color: #666666;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+
+  li {
+    border-left: solid 1px white;
+    padding: 15px;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+
+    &:last-of-type {
+      border-right: solid 1px white;
+    }
+
+    &:hover {
+      background-color: #eee;
+      color: black;
+
+      ul {
+        display: block;
+      }
+    }
+
+    &.active {
+      background-color: white;
+      color: #666666;
+    }
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    & > li {
+      border: 0;
+
+      &:last-of-type {
+        border: 0;
+      }
+    }
+  }
+}

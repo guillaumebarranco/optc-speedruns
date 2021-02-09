@@ -1,0 +1,27 @@
+<p>Voir les scores en attente</p>
+
+<table class="table-scores">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Score</th>
+      <th>Leaderboard</th>
+      <th>Catégorie</th>
+      <th>Vidéo</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let score of _scores$ | async; let i = index">
+      <td>{{ score.username }}</td>
+      <td>{{ _getDurationTime(score.duration) }}</td>
+      <td>{{ score.leaderboard }}</td>
+      <td>{{ score.category }}</td>
+      <td>{{ score.videoUrl }}</td>
+      <td>
+        <button (click)="_validateScore(score)">Valider</button>
+        <button (click)="_removeScore(score)">Refuser</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

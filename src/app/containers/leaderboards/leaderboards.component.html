@@ -1,0 +1,19 @@
+<mat-form-field appearance="fill">
+  <mat-label>Catégorie</mat-label>
+
+  <mat-select name="category-selection" [(ngModel)]="selectedCategory">
+    <mat-option value="gc">Garp Challenges</mat-option>
+    <mat-option value="forest">Forêts d'entraînement</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="leaderboards">
+  <ng-container *ngFor="let leaderboard of leaderboards">
+    <app-leaderboard-item
+      *ngIf="leaderboard.category === selectedCategory"
+      class="leaderboard-item"
+      [item]="leaderboard"
+      (openLeaderboard)="_onOpenLeaderboard(leaderboard, $event)"
+    ></app-leaderboard-item>
+  </ng-container>
+</div>

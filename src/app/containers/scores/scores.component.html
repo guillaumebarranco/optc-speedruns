@@ -1,0 +1,38 @@
+<div class="back-page-button">
+  <button mat-button (click)="_previousPage()">Retour aux catégories</button>
+</div>
+
+<div>{{ subLeaderboard.name }}</div>
+<div>{{ category.name }}</div>
+
+<br />
+<div *ngIf="(_scores$ | async).length === 0">
+  Il n'existe aucun record pour cette catégorie pour l'instant. N'hésitez pas à
+  en proposer un !
+</div>
+
+<!-- *ngIf="category.id !== 'monotype' && category.id !== 'monoclass'" -->
+<div class="submit-record">
+  <button mat-button (click)="_submitRecord()">Soumettre un record</button>
+</div>
+
+<table *ngIf="(_scores$ | async).length > 0" class="table-scores">
+  <thead>
+    <tr>
+      <th>Rang</th>
+      <th>Nom</th>
+      <th>Temps</th>
+      <th>Vidéo URL</th>
+      <td>Date</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let score of _scores$ | async; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ score.username }}</td>
+      <td>{{ _getDurationTime(score.duration) }}</td>
+      <td>{{ score.videoUrl }}</td>
+      <td>{{ score.created * 1000 | date: "dd-MM-yyyy" }}</td>
+    </tr>
+  </tbody>
+</table>

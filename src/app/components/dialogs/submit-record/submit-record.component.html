@@ -1,0 +1,20 @@
+<form>
+  <div>
+    <label>Pseudo</label>
+    <input type="text" name="username" [(ngModel)]="formData.username" />
+  </div>
+
+  <div>
+    <label>URL Vidéo</label>
+    <input type="text" name="videoUrl" [(ngModel)]="formData.videoUrl" />
+  </div>
+
+  <div>
+    <label>Temps</label>
+    <input type="text" name="duration" [(ngModel)]="formData.duration" />
+  </div>
+
+  <div>
+    <button [mat-dialog-close]="formData">Soumettre</button>
+  </div>
+</form>

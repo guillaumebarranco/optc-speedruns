@@ -1,0 +1,15 @@
+.leaderboard-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  border: solid 1px white;
+  padding: 10px;
+  text-align: center;
+}
+
+img {
+  margin-top: 10px;
+}

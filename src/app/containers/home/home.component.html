@@ -1,0 +1,28 @@
+<p>
+  Bienvenue sur OPTC World Records ! <br /><br />
+
+  Ce site web aura pour objectif de recenser les meilleurs temps pour
+  différentes catégories de quêtes présentes sur One Piece Treasure Cruise,
+  faites par la communauté. <br /><br />
+
+  Vous pourrez par exemple y trouver la team la plus rapide pour un Garp
+  Challenge Doflamingo, ou encore pour une forêt. En monotype, en monoclasse, ou
+  bien sans restrictions... La liste des possibilités est infinie !
+</p>
+
+<button mat-button (click)="_goToLeaderboards()">Voir les classements</button>
+
+<h2>Derniers speedruns ajoutés</h2>
+
+<table class="table-scores">
+  <tbody>
+    <tr *ngFor="let score of _scores$ | async">
+      <td>{{ score.username }}</td>
+      <td>{{ _getDurationTime(score.duration) }}</td>
+      <td>{{ _getScoreLeaderboard(score.leaderboard) }}</td>
+      <td>{{ _getScoreCategory(score.category) }}</td>
+      <td>{{ score.videoUrl }}</td>
+      <td>{{ score.created * 1000 | date: "dd-MM-yyyy" }}</td>
+    </tr>
+  </tbody>
+</table>
