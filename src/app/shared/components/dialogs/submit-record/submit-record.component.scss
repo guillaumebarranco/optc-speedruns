@@ -1,0 +1,18 @@
+.form-input {
+  margin-top: 15px;
+  display: flex;
+
+  label {
+    width: 100px;
+  }
+
+  input {
+    display: block;
+    width: 200px;
+    padding: 5px;
+  }
+
+  button {
+    border: solid 1px black;
+  }
+}

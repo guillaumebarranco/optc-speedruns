@@ -28,3 +28,12 @@
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>
+
+<div class="leaderboards left-leaderboards">
+  <app-leaderboard-item
+    class="leaderboard-item"
+    *ngFor="let leaderboard of subLeaderboardsFunCategories"
+    [item]="leaderboard"
+    (openLeaderboard)="_onOpenLeaderboard($event)"
+  ></app-leaderboard-item>
+</div>

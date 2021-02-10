@@ -13,23 +13,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { containers } from './containers';
-import { firebaseConfig } from './firebase.config';
-import { SharedModule } from './shared/shared.module';
+import { components } from './components';
+import { services } from './services';
+import { dialogs } from './components/dialogs';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, ...containers],
+  declarations: [...components, ...dialogs],
   imports: [
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     FormsModule,
+    RouterModule,
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
@@ -40,10 +37,8 @@ import { SharedModule } from './shared/shared.module';
     MatInputModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    SharedModule,
   ],
-  bootstrap: [AppComponent],
+  exports: [...components, ...dialogs],
+  providers: [...services],
 })
-export class AppModule {}
+export class SharedModule {}

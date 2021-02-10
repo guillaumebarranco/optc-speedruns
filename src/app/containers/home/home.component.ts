@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { leaderboards } from '../leaderboards/leaderboards.component';
-import { allCategories } from '../sub-leaderboard/sub-leaderboard.component';
+import { allCategories } from 'src/app/shared/data/categories';
+import { leaderboards } from 'src/app/shared/data/leaderboards';
+import { getDurationFromTimestamp } from 'src/app/shared/utils/duration';
 
 @Component({
   selector: 'app-home',
@@ -30,23 +31,21 @@ export class HomeComponent implements OnInit {
   }
 
   public _getDurationTime(duration: number) {
-    const seconds = duration % 60;
-    const minutes = (duration - seconds) / 60;
-
-    return `${minutes}min ${seconds}s`;
+    return getDurationFromTimestamp(duration);
   }
 
   public _getScoreLeaderboard(leaderboard: string) {
     const foundSubLeaderboard = leaderboards.find(
-      (l) =>
+      (l: any) =>
         !!l.leaderboards &&
         l.leaderboards.length > 0 &&
-        l.leaderboards.find((subL) => subL.id === leaderboard)
+        l.leaderboards.find((subL: any) => subL.id === leaderboard)
     );
 
     return foundSubLeaderboard
-      ? foundSubLeaderboard.leaderboards.find((subL) => subL.id === leaderboard)
-          ?.name
+      ? foundSubLeaderboard.leaderboards?.find(
+          (subL: any) => subL.id === leaderboard
+        )?.name
       : leaderboards.find((l) => l.id === leaderboard)?.name;
   }
 

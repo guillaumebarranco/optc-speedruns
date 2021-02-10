@@ -1,20 +1,22 @@
 <form>
-  <div>
+  <div class="form-input">
     <label>Pseudo</label>
     <input type="text" name="username" [(ngModel)]="formData.username" />
   </div>
 
-  <div>
+  <div class="form-input">
     <label>URL Vidéo</label>
     <input type="text" name="videoUrl" [(ngModel)]="formData.videoUrl" />
   </div>
 
-  <div>
+  <div class="form-input">
     <label>Temps</label>
-    <input type="text" name="duration" [(ngModel)]="formData.duration" />
+    <input type="time" name="duration" [(ngModel)]="formData.duration" />
   </div>
 
-  <div>
-    <button [mat-dialog-close]="formData">Soumettre</button>
+  <div class="form-input">
+    <button mat-button [mat-dialog-close]="formData">
+      Soumettre le record
+    </button>
   </div>
 </form>

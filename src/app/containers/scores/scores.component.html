@@ -6,33 +6,39 @@
 <div>{{ category.name }}</div>
 
 <br />
-<div *ngIf="(_scores$ | async).length === 0">
-  Il n'existe aucun record pour cette catégorie pour l'instant. N'hésitez pas à
-  en proposer un !
-</div>
+<ng-container *ngIf="_scores$ | async">
+  <div *ngIf="(_scores$ | async).length === 0">
+    Il n'existe aucun record pour cette catégorie pour l'instant. N'hésitez pas
+    à en proposer un !
+  </div>
 
-<!-- *ngIf="category.id !== 'monotype' && category.id !== 'monoclass'" -->
-<div class="submit-record">
-  <button mat-button (click)="_submitRecord()">Soumettre un record</button>
-</div>
+  <!-- *ngIf="category.id !== 'monotype' && category.id !== 'monoclass'" -->
+  <div class="submit-record">
+    <button mat-button (click)="_submitRecord()">Soumettre un record</button>
+  </div>
 
-<table *ngIf="(_scores$ | async).length > 0" class="table-scores">
-  <thead>
-    <tr>
-      <th>Rang</th>
-      <th>Nom</th>
-      <th>Temps</th>
-      <th>Vidéo URL</th>
-      <td>Date</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let score of _scores$ | async; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ score.username }}</td>
-      <td>{{ _getDurationTime(score.duration) }}</td>
-      <td>{{ score.videoUrl }}</td>
-      <td>{{ score.created * 1000 | date: "dd-MM-yyyy" }}</td>
-    </tr>
-  </tbody>
-</table>
+  <table *ngIf="(_scores$ | async).length > 0" class="table-scores">
+    <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Pseudo</th>
+        <th>Temps</th>
+        <th>Vidéo URL</th>
+        <td>Date d'ajout</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of _scores$ | async; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ score.username }}</td>
+        <td>{{ _getDurationTime(score.duration) }}</td>
+        <td>
+          <a [href]="score.videoUrl" target="_blank">
+            <img src="assets/icons/YouTube_icon.png" width="50" />
+          </a>
+        </td>
+        <td>{{ score.created * 1000 | date: "dd-MM-yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

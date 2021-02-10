@@ -19,9 +19,15 @@
     <tr *ngFor="let score of _scores$ | async">
       <td>{{ score.username }}</td>
       <td>{{ _getDurationTime(score.duration) }}</td>
-      <td>{{ _getScoreLeaderboard(score.leaderboard) }}</td>
+      <td>
+        {{ _getScoreLeaderboard(score.leaderboard) }}
+      </td>
       <td>{{ _getScoreCategory(score.category) }}</td>
-      <td>{{ score.videoUrl }}</td>
+      <td>
+        <a [href]="score.videoUrl" target="_blank">
+          <img src="assets/icons/YouTube_icon.png" width="50" />
+        </a>
+      </td>
       <td>{{ score.created * 1000 | date: "dd-MM-yyyy" }}</td>
     </tr>
   </tbody>

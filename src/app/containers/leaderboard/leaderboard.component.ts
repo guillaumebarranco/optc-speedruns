@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { leaderboards } from '../leaderboards/leaderboards.component';
+import { leaderboards } from 'src/app/shared/data/leaderboards';
 
 @Component({
   selector: 'app-leaderboard',
@@ -15,7 +15,6 @@ export class LeaderboardComponent implements OnInit {
   public ngOnInit(): void {
     const params: any = this._route.params;
     this.data = leaderboards.find((l) => l.id === params._value.leaderboard);
-    console.log('this.data', this.data);
   }
 
   public _onOpenLeaderboard(leaderboardItem: any): void {

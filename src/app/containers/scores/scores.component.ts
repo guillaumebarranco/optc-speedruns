@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubmitRecordComponent } from 'src/app/components/dialogs';
-import { leaderboards } from '../leaderboards/leaderboards.component';
-import {
-  allCategories,
-  classCategories,
-  typeCategories,
-} from '../sub-leaderboard/sub-leaderboard.component';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { leaderboards } from 'src/app/shared/data/leaderboards';
+import {
+  allCategories,
+  typeCategories,
+  classCategories,
+} from 'src/app/shared/data/categories';
+import { SubmitRecordComponent } from 'src/app/shared/components/dialogs';
+import { getDurationFromTimestamp } from 'src/app/shared/utils/duration';
 
 @Component({
   selector: 'app-scores',
@@ -127,10 +128,7 @@ export class ScoresComponent implements OnInit {
   }
 
   public _getDurationTime(duration: number) {
-    const seconds = duration % 60;
-    const minutes = (duration - seconds) / 60;
-
-    return `${minutes} min ${seconds}s`;
+    return getDurationFromTimestamp(duration);
   }
 
   public _previousPage(): void {
@@ -146,8 +144,14 @@ export class ScoresComponent implements OnInit {
       .afterClosed()
       .subscribe((value) => {
         if (value && value.duration) {
+          const splitDuration = value.duration.split(':');
+
+          const duration =
+            Number(splitDuration[0]) * 60 + Number(splitDuration[1]);
+
           const score = {
             ...value,
+            duration,
             leaderboard: this.subLeaderboard.id,
             category: this.category.id,
             isMonotype:

@@ -1,6 +1,6 @@
 .table-scores {
   margin-top: 20px;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
   border-spacing: 0;
 
@@ -8,6 +8,11 @@
   td {
     text-align: left;
     border: solid 1px white;
-    padding: 5px;
+    padding: 7px;
+
+    a {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
