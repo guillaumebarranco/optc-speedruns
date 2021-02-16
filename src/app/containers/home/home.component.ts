@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   private _getLastScores(): void {
     this._scores$ = this._firestore
-      .collection('speedruns', (ref) => ref.orderBy('created').limit(5))
+      .collection('speedruns', (ref) => ref.orderBy('created', 'desc').limit(5))
       .valueChanges();
   }
 
