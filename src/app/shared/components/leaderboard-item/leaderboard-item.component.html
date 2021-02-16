@@ -1,4 +1,5 @@
 <div class="leaderboard-item" (click)="_openLeaderboard(item)">
   <div>{{ item.name }}</div>
+  <div style="margin-top: 10px">{{ item.count }} speedruns</div>
   <img *ngIf="item.icon" [src]="item.icon" [width]="_imgSize" alt="" />
 </div>

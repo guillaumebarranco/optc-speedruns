@@ -6,7 +6,7 @@
   <app-leaderboard-item
     class="leaderboard-item"
     *ngFor="let leaderboard of data.leaderboards"
-    [item]="leaderboard"
+    [item]="_getLeaderboardItem(leaderboard)"
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>

@@ -6,7 +6,7 @@
   <app-leaderboard-item
     class="leaderboard-item"
     *ngFor="let leaderboard of subLeaderboardsCategories"
-    [item]="leaderboard"
+    [item]="_getLeaderboardItem(leaderboard)"
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>
@@ -15,7 +15,7 @@
   <app-leaderboard-item
     class="leaderboard-item"
     *ngFor="let leaderboard of subLeaderboardsTypeCategories"
-    [item]="leaderboard"
+    [item]="_getLeaderboardItem(leaderboard)"
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>
@@ -24,7 +24,7 @@
   <app-leaderboard-item
     class="leaderboard-item"
     *ngFor="let leaderboard of subLeaderboardsClassCategories"
-    [item]="leaderboard"
+    [item]="_getLeaderboardItem(leaderboard)"
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>
@@ -33,7 +33,7 @@
   <app-leaderboard-item
     class="leaderboard-item"
     *ngFor="let leaderboard of subLeaderboardsFunCategories"
-    [item]="leaderboard"
+    [item]="_getLeaderboardItem(leaderboard)"
     (openLeaderboard)="_onOpenLeaderboard($event)"
   ></app-leaderboard-item>
 </div>

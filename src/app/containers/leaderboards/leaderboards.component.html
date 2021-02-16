@@ -12,7 +12,7 @@
     <app-leaderboard-item
       *ngIf="leaderboard.category === selectedCategory"
       class="leaderboard-item"
-      [item]="leaderboard"
+      [item]="_getLeaderboardItem(leaderboard)"
       (openLeaderboard)="_onOpenLeaderboard(leaderboard, $event)"
     ></app-leaderboard-item>
   </ng-container>
