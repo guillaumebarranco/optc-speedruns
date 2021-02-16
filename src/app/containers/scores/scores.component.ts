@@ -15,6 +15,8 @@ import {
 } from 'src/app/shared/data/categories';
 import { SubmitRecordComponent } from 'src/app/shared/components/dialogs';
 import { getDurationFromTimestamp } from 'src/app/shared/utils/duration';
+import { Store } from '@ngrx/store';
+import { SpeedrunsSelector } from 'src/app/store/selectors';
 
 @Component({
   selector: 'app-scores',
@@ -31,10 +33,12 @@ export class ScoresComponent implements OnInit {
   public _isAdminAuthenticated = false;
 
   constructor(
+    private _store: Store,
+    private _speedrunsSelector: SpeedrunsSelector,
+    private _firestore: AngularFirestore,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _dialog: MatDialog,
-    private _firestore: AngularFirestore
+    private _dialog: MatDialog
   ) {
     this._scoresCollection = _firestore.collection<any>('speedruns');
   }
@@ -61,56 +65,69 @@ export class ScoresComponent implements OnInit {
 
     this._scores$ = this._getScores().pipe(
       map((scores: any[]) => {
-        return scores.sort((a, b) => {
-          if (a.duration < b.duration) {
-            return -1;
-          } else if (a.duration > b.duration) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
+        return Array.from(scores)
+          .sort((a, b) => {
+            if (a.duration < b.duration) {
+              return -1;
+            } else if (a.duration > b.duration) {
+              return 1;
+            } else {
+              return 0;
+            }
+          })
+          .slice(0, 10);
       })
     );
   }
 
   public _getScores(): any {
+    const scores$ = this._store.select(this._speedrunsSelector.getSpeedruns);
+
     switch (this.category.id) {
       case 'all':
-        return this._firestore
-          .collection('speedruns', (ref) =>
-            ref
-              .where('leaderboard', '==', this.subLeaderboard.id)
-              .where('validated', '==', true)
+        return scores$.pipe(
+          map((scores: any) =>
+            Array.from(scores).filter(
+              (s: any) =>
+                !!s.validated && s.leaderboard === this.subLeaderboard.id
+            )
           )
-          .valueChanges();
+        );
+
       case 'monotype':
-        return this._firestore
-          .collection('speedruns', (ref) =>
-            ref
-              .where('leaderboard', '==', this.subLeaderboard.id)
-              .where('validated', '==', true)
-              .where('isMonotype', '==', true)
+        return scores$.pipe(
+          map((scores: any) =>
+            Array.from(scores).filter(
+              (s: any) =>
+                !!s.validated &&
+                s.leaderboard === this.subLeaderboard.id &&
+                !!s.isMonotype
+            )
           )
-          .valueChanges();
+        );
+
       case 'monoclass':
-        return this._firestore
-          .collection('speedruns', (ref) =>
-            ref
-              .where('leaderboard', '==', this.subLeaderboard.id)
-              .where('validated', '==', true)
-              .where('isMonoclass', '==', true)
+        return scores$.pipe(
+          map((scores: any) =>
+            Array.from(scores).filter(
+              (s: any) =>
+                !!s.validated &&
+                s.leaderboard === this.subLeaderboard.id &&
+                !!s.isMonoclass
+            )
           )
-          .valueChanges();
+        );
       default:
-        return this._firestore
-          .collection('speedruns', (ref) =>
-            ref
-              .where('leaderboard', '==', this.subLeaderboard.id)
-              .where('validated', '==', true)
-              .where('category', '==', this.category.id)
+        return scores$.pipe(
+          map((scores: any) =>
+            Array.from(scores).filter(
+              (s: any) =>
+                !!s.validated &&
+                s.leaderboard === this.subLeaderboard.id &&
+                s.category === this.category.id
+            )
           )
-          .valueChanges();
+        );
     }
   }
 

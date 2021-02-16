@@ -21,6 +21,11 @@ import { AppComponent } from './app.component';
 import { containers } from './containers';
 import { firebaseConfig } from './firebase.config';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store/reducers';
+import { effects } from './store/effects';
+import { selectors } from './store/selectors';
 
 @NgModule({
   declarations: [AppComponent, ...containers],
@@ -30,6 +35,8 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    EffectsModule.forRoot(effects),
+    StoreModule.forRoot(reducers, { metaReducers: [] }),
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
@@ -44,6 +51,7 @@ import { SharedModule } from './shared/shared.module';
     AngularFireDatabaseModule,
     SharedModule,
   ],
+  providers: [...selectors],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
